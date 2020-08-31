@@ -19,30 +19,31 @@ html(lang='en')
         .twelve.column(style='margin-top: 25%')
 
           div(style="")
-            p Try this pattern
 
-
-            p Mode: 
+            div Mode: 
+            div
               select(id="mode" name="mode")
                 each item in modes
                   option(value=item) #{item}
 
-
-            p Base notes: #{allNotes}
-            p Number of notes: 
+            br
+            div Number of notes: 
+            div
               select(id="notes" name="notes")
                 -for(var i = 1;i<=16;i++){
                   option(value=i) #{i}
                   -}
 
-            |Tempo: 
+            div Tempo: 
             div(id="tempo" style="display:inline") #{tempo}
-
-
+            br
+            br
+            div Base notes: #{allNotes}
+            br          
             div(style="display: flex;flex-direction: row;")
               each item in pattern
                 div(class="note-item") #{item}
-
+            br
             button(id="play-button") Play
 
 script(src="js/patterns.js")
