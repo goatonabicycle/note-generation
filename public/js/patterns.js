@@ -9,10 +9,6 @@ const synth = new Tone.Synth({
   },
 }).toDestination();
 
-if (Tone.Transport.state !== "started") {
-  Tone.Transport.start();
-}
-
 const mainMelody = [];
 
 noteObjects.forEach((element, index) => {
@@ -29,8 +25,6 @@ console.log(mainMelody);
 const applyToAllNotes = () => {
   if (currentItem === mainMelody.length) {
     console.log("currentItem === mainMelody.length! Relooping now");
-    // clearInterval();
-    // return;\
     currentItem = 0;
   }
 
@@ -57,25 +51,17 @@ const applyToAllNotes = () => {
   currentItem++;
 };
 
-// ------------------------
-
 Tone.Transport.bpm.value = 120;
 
 const playButton = document.getElementById("play-button");
-playButton.addEventListener("click", () => {
-  if (Tone.Transport.state !== "started") {
-    // Tone.Transport.start();
-    playButton.innerHTML = "Stop";
-    applyToAllNotes();
-    setInterval(applyToAllNotes, 500);
-  } else {
-    Tone.Transport.stop();
-    playButton.innerHTML = "Play";
-  }
-});
 
-document.documentElement.addEventListener("mousedown", () => {
-  if (Tone.context.state !== "running") {
-    Tone.context.resume();
+const playbuttonClickHandler = () => {
+  if ((playButton.innerHTML = "Stop")) {
+    clearImmediate();
   }
-});
+  playButton.innerHTML = "Stop";
+  applyToAllNotes();
+  setInterval(applyToAllNotes, 500);
+};
+
+playButton.addEventListener("click", playbuttonClickHandler);
