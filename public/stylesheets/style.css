@@ -8,7 +8,8 @@ a {
 }
 
 .note-item {
-  width: 100px;
-  border: 1px solid red;
+  width: 50px;
+  border: 1px solid cadetblue;
+  border-radius: 15px;
   text-align: center;
 }

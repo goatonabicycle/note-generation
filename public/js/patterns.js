@@ -1,11 +1,12 @@
 let currentItem = 0;
 const noteObjects = document.querySelectorAll(".note-item");
 const setTempo = document.querySelectorAll(".tempo") || 120;
+var timer = 0;
 
 const synth = new Tone.Synth({
   oscillator: {
-    count: 2,
-    type: "fatsawtooth",
+    count: 4,
+    // type: "fatsawtooth",
   },
 }).toDestination();
 
@@ -13,7 +14,6 @@ const mainMelody = [];
 
 noteObjects.forEach((element, index) => {
   mainMelody.push({
-    time: `0:${index}`,
     note: element.outerText + "2",
     duration: "8n",
     noteObject: element,
@@ -23,10 +23,7 @@ noteObjects.forEach((element, index) => {
 console.log(mainMelody);
 
 const applyToAllNotes = () => {
-  if (currentItem === mainMelody.length) {
-    console.log("currentItem === mainMelody.length! Relooping now");
-    currentItem = 0;
-  }
+  if (currentItem === mainMelody.length) currentItem = 0;
 
   //Clear out the last item
   mainMelody[mainMelody.length - 1].noteObject.style.background = "";
@@ -55,13 +52,17 @@ Tone.Transport.bpm.value = 120;
 
 const playButton = document.getElementById("play-button");
 
-const playbuttonClickHandler = () => {
-  if ((playButton.innerHTML = "Stop")) {
-    clearImmediate();
+const playbuttonClickHandler = async () => {
+  await Tone.start();
+  console.log("audio is ready");
+  if (playButton.innerHTML === "Stop") {
+    clearInterval(timer);
+    playButton.innerHTML = "Play";
+    return;
   }
   playButton.innerHTML = "Stop";
   applyToAllNotes();
-  setInterval(applyToAllNotes, 500);
+  timer = setInterval(applyToAllNotes, 500);
 };
 
 playButton.addEventListener("click", playbuttonClickHandler);

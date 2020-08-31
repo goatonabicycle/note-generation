@@ -8,6 +8,7 @@ html(lang='en')
     meta(name='viewport' content='width=device-width, initial-scale=1')   
     link(rel='stylesheet' href='css/normalize.css')
     link(rel='stylesheet' href='css/skeleton.css')    
+    link(rel='stylesheet' href='css/app.css')    
     link(rel='stylesheet' href='stylesheets/style.css')
     link(rel='icon' type='image/png' href='images/favicon.png')
 
@@ -17,10 +18,23 @@ html(lang='en')
       .row
         .twelve.column(style='margin-top: 25%')
 
-          div(style="font-size: 4.0rem; line-height: 1.2;  letter-spacing: -.1rem;")
+          div(style="")
             p Try this pattern
+
+
+            p Mode: 
+              select(id="mode" name="mode")
+                each item in modes
+                  option(value=item) #{item}
+
+
             p Base notes: #{allNotes}
-            p Number of notes: #{numberOfNotes}
+            p Number of notes: 
+              select(id="notes" name="notes")
+                -for(var i = 1;i<=16;i++){
+                  option(value=i) #{i}
+                  -}
+
             |Tempo: 
             div(id="tempo" style="display:inline") #{tempo}
 
@@ -32,5 +46,5 @@ html(lang='en')
             button(id="play-button") Play
 
 script(src="js/patterns.js")
-script(src="js/music.js")
+script(src="js/options.js")
 

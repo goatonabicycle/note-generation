@@ -10,18 +10,18 @@ const getRandomNotes = (numberOfNotes, withinRange = ["_", 1, 2, 3]) => {
     result.push(element);
   }
 
-  console.log(result);
   return result;
 };
 
 router.get("/", async function (req, res, next) {
-  const mode = "A lydian";
-  const notes = Scale.notes(mode);
-  const numberOfNotes = 4;
-  const tempo = 120;
+  const modes = ["A lydian", "B lydian", "C lydian"];
+  const notes = Scale.notes(req.query.mode || "A lydian");
+  const numberOfNotes = req.query.notes || 4;
+  const tempo = req.query.tempo || 120;
 
   const randomNotes = getRandomNotes(numberOfNotes, notes);
   const result = {
+    modes,
     pattern: randomNotes,
     allNotes: notes,
     numberOfNotes,
