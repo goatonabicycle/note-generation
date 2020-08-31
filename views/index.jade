@@ -1,0 +1,36 @@
+doctype html
+html(lang='en')
+  head    
+    meta(charset='utf-8')
+    title Pattern Generation
+    meta(name='description' content='')
+    meta(name='author' content='Rowan')    
+    meta(name='viewport' content='width=device-width, initial-scale=1')   
+    link(rel='stylesheet' href='css/normalize.css')
+    link(rel='stylesheet' href='css/skeleton.css')    
+    link(rel='stylesheet' href='stylesheets/style.css')
+    link(rel='icon' type='image/png' href='images/favicon.png')
+
+    script(src="https://unpkg.com/tone")   
+  body    
+    .container
+      .row
+        .twelve.column(style='margin-top: 25%')
+
+          div(style="font-size: 4.0rem; line-height: 1.2;  letter-spacing: -.1rem;")
+            p Try this pattern
+            p Base notes: #{allNotes}
+            p Number of notes: #{numberOfNotes}
+            |Tempo: 
+            div(id="tempo" style="display:inline") #{tempo}
+
+
+            div(style="display: flex;flex-direction: row;")
+              each item in pattern
+                div(class="note-item") #{item}
+
+            button(id="play-button") Play
+
+script(src="js/patterns.js")
+script(src="js/music.js")
+
