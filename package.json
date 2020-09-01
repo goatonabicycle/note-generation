@@ -12,14 +12,14 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
-    "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "node-fetch": "^2.6.0",
+    "pug": "^3.0.0",
     "tonal": "^2.2.2",
     "tone": "^14.7.39"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.12",
     "nodemon": "^2.0.2"
   }
 }
