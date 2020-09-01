@@ -66,3 +66,13 @@ const playbuttonClickHandler = async () => {
 };
 
 playButton.addEventListener("click", playbuttonClickHandler);
+
+const refreshButton = document.getElementById("refresh-button");
+const refreshClickHandler = async () => {
+  alert("Still being implemented. Hol up");
+  // clearInterval(timer);
+  // playButton.innerHTML = "Stop";
+  // applyToAllNotes();
+  // timer = setInterval(applyToAllNotes, 500);
+};
+refreshButton.addEventListener("click", refreshClickHandler);

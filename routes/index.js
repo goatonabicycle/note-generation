@@ -13,22 +13,41 @@ const getRandomNotes = (numberOfNotes, withinRange = ["_", 1, 2, 3]) => {
   return result;
 };
 
-router.get("/", async function (req, res, next) {
+const buildRandomResult = (mode, notes, tempo) => {
   const modes = ["A lydian", "B lydian", "C lydian"];
-  const notes = Scale.notes(req.query.mode || "A lydian");
-  const numberOfNotes = req.query.notes || 4;
-  const tempo = req.query.tempo || 120;
+  const baseNotes = Scale.notes(mode || "A lydian");
+  const numberOfNotes = notes || 4;
+  tempo = tempo || 120;
 
-  const randomNotes = getRandomNotes(numberOfNotes, notes);
+  const randomNotes = getRandomNotes(numberOfNotes, baseNotes);
   const result = {
     modes,
     pattern: randomNotes,
-    allNotes: notes,
+    allNotes: baseNotes,
     numberOfNotes,
     tempo,
   };
 
+  return result;
+};
+
+router.get("/", async function (req, res, next) {
+  const result = buildRandomResult(
+    req.query.mode,
+    req.query.notes,
+    req.query.tempo
+  );
   res.render("index", result);
+});
+
+router.get("/random", async function (req, res, next) {
+  const result = buildRandomResult(
+    req.query.mode,
+    req.query.notes,
+    req.query.tempo
+  );
+
+  res.json(result);
 });
 
 module.exports = router;
