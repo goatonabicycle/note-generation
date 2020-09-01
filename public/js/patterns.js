@@ -48,11 +48,9 @@ const applyToAllNotes = () => {
   currentItem++;
 };
 
-Tone.Transport.bpm.value = 120;
-
 const playButton = document.getElementById("play-button");
 
-const playbuttonClickHandler = async () => {
+playButton.addEventListener("click", async () => {
   await Tone.start();
   console.log("audio is ready");
   if (playButton.innerHTML === "Stop") {
@@ -62,17 +60,14 @@ const playbuttonClickHandler = async () => {
   }
   playButton.innerHTML = "Stop";
   applyToAllNotes();
-  timer = setInterval(applyToAllNotes, 500);
-};
 
-playButton.addEventListener("click", playbuttonClickHandler);
+  const tempo = 60000 / tempoSlider.value;
+  console.log("tempo", tempo);
+  timer = setInterval(applyToAllNotes, tempo);
+});
 
 const refreshButton = document.getElementById("refresh-button");
-const refreshClickHandler = async () => {
-  alert("Still being implemented. Hol up");
-  // clearInterval(timer);
-  // playButton.innerHTML = "Stop";
-  // applyToAllNotes();
-  // timer = setInterval(applyToAllNotes, 500);
-};
-refreshButton.addEventListener("click", refreshClickHandler);
+
+refreshButton.addEventListener("click", async () => {
+  document.location.reload(true);
+});

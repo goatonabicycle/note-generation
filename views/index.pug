@@ -8,8 +8,7 @@ html(lang='en')
     meta(name='viewport' content='width=device-width, initial-scale=1')   
     link(rel='stylesheet' href='css/normalize.css')
     link(rel='stylesheet' href='css/skeleton.css')    
-    link(rel='stylesheet' href='css/app.css')    
-    link(rel='stylesheet' href='stylesheets/style.css')
+    link(rel='stylesheet' href='css/app.css')        
     link(rel='icon' type='image/png' href='images/favicon.png')
 
     script(src="https://unpkg.com/tone")   
@@ -35,7 +34,11 @@ html(lang='en')
                   -}
 
             div Tempo: 
-            div(id="tempo" style="display:inline") #{tempo}
+
+            div(class="slidecontainer")
+              input(type="range" min="20" max="360" step="10" value=currentTempo class="slider" id="tempoRange")
+
+            div(id="tempo" style="display:inline") #{currentTempo}
             br
             br
             div Base notes: #{allNotes}
@@ -50,6 +53,8 @@ html(lang='en')
             br
 
             a(href="https://github.com/goatonabicycle/note-generation") https://github.com/goatonabicycle/note-generation
-script(src="js/patterns.js")
+
 script(src="js/options.js")
+script(src="js/patterns.js")
+
 

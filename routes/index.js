@@ -17,7 +17,7 @@ const buildRandomResult = (mode, notes, tempo) => {
   const modes = ["A lydian", "B lydian", "C lydian"];
   const baseNotes = Scale.notes(mode || "A lydian");
   const numberOfNotes = notes || 4;
-  tempo = tempo || 120;
+  // const currentTempo = tempo || 120;
 
   const randomNotes = getRandomNotes(numberOfNotes, baseNotes);
   const result = {
@@ -25,7 +25,7 @@ const buildRandomResult = (mode, notes, tempo) => {
     pattern: randomNotes,
     allNotes: baseNotes,
     numberOfNotes,
-    tempo,
+    // currentTempo,
   };
 
   return result;
@@ -38,16 +38,7 @@ router.get("/", async function (req, res, next) {
     req.query.tempo
   );
   res.render("index", result);
-});
-
-router.get("/random", async function (req, res, next) {
-  const result = buildRandomResult(
-    req.query.mode,
-    req.query.notes,
-    req.query.tempo
-  );
-
-  res.json(result);
+  console.log("req.query.tempo", req.query.tempo);
 });
 
 module.exports = router;
