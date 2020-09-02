@@ -19,13 +19,19 @@ html(lang='en')
 
           div(style="")
 
-            div Mode: 
+            div Key: 
             div
-              select(id="mode" name="mode")
-                each item in modes
+              select(id="key" name="key")
+                each item in keys
                   option(value=item) #{item}
 
-            br
+            div Scales: 
+            div
+              select(id="scale" name="scale")
+                each item in allScales
+                  option(value=item) #{item}
+
+
             div Number of notes: 
             div
               select(id="notes" name="notes")
@@ -33,16 +39,16 @@ html(lang='en')
                   option(value=i) #{i}
                   -}
 
-            div Tempo: 
+            div Tempo:  
+              div(id="tempo" style="display:inline") #{currentTempo}
 
             div(class="slidecontainer")
-              input(type="range" min="20" max="360" step="10" value=currentTempo class="slider" id="tempoRange")
+              input(type="range" min="40" max="600" step="10" value=currentTempo class="slider" id="tempoRange")
 
-            div(id="tempo" style="display:inline") #{currentTempo}
-            br
-            br
+
             div Base notes: #{allNotes}
-            br          
+            br  
+            div Randomized notes:       
             div(style="display: flex;flex-direction: row;")
               each item in pattern
                 div(class="note-item") #{item}
@@ -51,8 +57,8 @@ html(lang='en')
             button(id="refresh-button") Refresh
             br
             br
-
-            a(href="https://github.com/goatonabicycle/note-generation") https://github.com/goatonabicycle/note-generation
+            a(href="https://github.com/goatonabicycle/note-generation") Code here
+            br                       
 
 script(src="js/options.js")
 script(src="js/patterns.js")

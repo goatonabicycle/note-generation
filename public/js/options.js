@@ -1,6 +1,6 @@
 const tempoSlider = document.getElementById("tempoRange");
 tempoSlider.value = window.localStorage.getItem("tempo");
-const selectedTempo = document.getElementById("tempo");
+const selectedTempo = document.getElementById("tempo") || "240";
 selectedTempo.innerHTML = tempoSlider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
@@ -17,7 +17,8 @@ tempoSlider.onchange = () => {
 };
 
 const selectedNumberOfNotes = document.getElementById("notes");
-const selectedMode = document.getElementById("mode");
+const selectedKey = document.getElementById("key");
+const selectedScale = document.getElementById("scale");
 
 const setUrl = (parameterName, parameterValue) => {
   if (this.selectedIndex !== 0) {
@@ -31,11 +32,16 @@ selectedNumberOfNotes.onchange = () => {
   setUrl("notes", selectedNumberOfNotes.value);
 };
 
-selectedMode.onchange = () => {
-  setUrl("mode", selectedMode.value);
+selectedKey.onchange = () => {
+  setUrl("key", selectedKey.value);
+};
+
+selectedScale.onchange = () => {
+  setUrl("scale", selectedScale.value);
 };
 
 var href = new URL(window.location.href);
-selectedNumberOfNotes.value = href.searchParams.get("notes") || 4;
-selectedMode.value = href.searchParams.get("mode") || "A lydian";
-selectedTempo.value = href.searchParams.get("tempo") || "120";
+selectedNumberOfNotes.value = href.searchParams.get("notes") || 8;
+selectedScale.value = href.searchParams.get("scale") || "lydian";
+selectedTempo.value = href.searchParams.get("tempo") || "240";
+selectedKey.value = href.searchParams.get("key") || "C";
