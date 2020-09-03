@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { Scale } = require("tonal");
+const { Mode } = require("@tonaljs/tonal");
 
-const getRandomNotes = (numberOfNotes, withinRange = ["_", 1, 2, 3]) => {
+const getRandomNotes = (numberOfNotes, withinRange = []) => {
   let result = [];
 
   for (let item = 0; item < numberOfNotes; item++) {
@@ -31,12 +32,8 @@ const buildRandomResult = (scale, notes, tempo, key) => {
 
   const baseKey = key || "C";
   const baseScale = scale || "lydian";
-  const allScales = Scale.names();
+  const allScales = Mode.names();
   const baseNotes = Scale.notes(baseKey + " " + baseScale);
-
-  console.log("baseKey + baseScale", baseKey + " " + baseScale);
-  console.log("baseNotes", baseNotes);
-
   const numberOfNotes = notes || 8;
 
   const randomNotes = getRandomNotes(numberOfNotes, baseNotes);

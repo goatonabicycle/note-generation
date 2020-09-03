@@ -17,7 +17,7 @@ html(lang='en')
       .row
         .twelve.column(style='margin-top:5%')
 
-          div(style="")
+          div(style="text-align:center")
 
             div Key: 
             div
@@ -25,11 +25,12 @@ html(lang='en')
                 each item in keys
                   option(value=item) #{item}
 
-            div Scales: 
-            div
-              select(id="scale" name="scale")
-                each item in allScales
-                  option(value=item) #{item}
+            div(style="display: flex;flex-direction: row;justify-content: center;")
+              div Scales: 
+                div
+                  select(id="scale" name="scale")
+                    each item in allScales
+                      option(value=item) #{item}
 
 
             div Number of notes: 
@@ -46,10 +47,11 @@ html(lang='en')
               input(type="range" min="40" max="600" step="10" value=currentTempo class="slider" id="tempoRange")
 
 
-            div Base notes: #{allNotes}
-            br  
-            div Randomized notes:       
-            div(style="display: flex;flex-direction: row;")
+            br
+            div Randomized notes from 
+              i #{allNotes}:       
+            br 
+            div(style="display: flex;flex-direction: row;justify-content: center;")
               each item in pattern
                 div(class="note-item") #{item}
             br
