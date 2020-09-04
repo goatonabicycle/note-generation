@@ -7,10 +7,9 @@
 
 Todo:
 
-- Sort the scales in a meaningful way.
-- View as sharps or view as flats
 - Add a mechanism to share this random pattern with others.
-- Add Google analytics
+- View as sharps or view as flats
+
 - Add a "pattern mode" (1,2,5) instead of (A, B, E)
 - Display these notes relatively to the next notes (ala fl studio piano roll)
 - Add a "last ten randomized patterns" view to the right maybe? Store in session/cookie.
