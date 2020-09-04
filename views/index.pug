@@ -28,21 +28,21 @@ html(lang='en')
 
             div Key: 
             div
-              select(id="key" name="key")
+              select(id="key" name="key" class="select-css")
                 each item in keys
                   option(value=item) #{item}
 
             div(style="display: flex;flex-direction: row;justify-content: center;")
               div Scales: 
                 div
-                  select(id="scale" name="scale")
+                  select(id="scale" name="scale" class="select-css")
                     each item in allScales
                       option(value=item) #{item}
 
 
             div Number of notes: 
             div
-              select(id="notes" name="notes")
+              select(id="notes" name="notes" class="select-css")
                 -for(var i = 1;i<=16;i++){
                   option(value=i) #{i}
                   -}
