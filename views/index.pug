@@ -52,10 +52,10 @@ html(lang='en')
 
             br
             div Randomized notes from 
-              i #{allNotes}:       
+              i #{allNotes}  
             br 
             br
-            div(style="display: flex;flex-direction: row;justify-content: center;")
+            div(class="note-container")
               each item in pattern
                 div(class="note-item") #{item}
             br
@@ -63,7 +63,7 @@ html(lang='en')
             button(id="refresh-button") Refresh
             br
             br
-            a(href="https://github.com/goatonabicycle/note-generation") Code here
+            a(href="https://github.com/goatonabicycle/note-generation", target="_blank") Code here
             br                       
 
             script(src="js/options.js")

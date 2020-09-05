@@ -9,13 +9,19 @@ a {
   color: #00b7ff;
 }
 
+.note-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .note-item {
-  width: 60px;
+  max-width: 20px;
   border: 1px solid #00b7ff;
   border-radius: 25px;
   text-align: center;
-  padding: 20px;
-  font-size: 18px;
+  padding: 4px;
+  font-size: 12px;
 }
 
 .note-item.playing {
