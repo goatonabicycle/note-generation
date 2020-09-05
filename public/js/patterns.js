@@ -20,17 +20,23 @@ noteObjects.forEach((element, index) => {
   });
 });
 
-console.log(mainMelody);
+const setStyleToPlaying = (nodeItem) => {
+  nodeItem.classList.add("playing");
+};
+
+const setStyleToDefault = (nodeItem) => {
+  nodeItem.classList.remove("playing");
+};
 
 const applyToAllNotes = () => {
   if (currentItem === mainMelody.length) currentItem = 0;
 
   //Clear out the last item
-  mainMelody[mainMelody.length - 1].noteObject.style.background = "";
+  setStyleToDefault(mainMelody[mainMelody.length - 1].noteObject);
 
   //Which item are we dealing with?
   const currentNote = mainMelody[currentItem];
-  currentNote.noteObject.style.background = "blue";
+  setStyleToPlaying(currentNote.noteObject);
 
   //play the sound for this item
   synth.triggerAttackRelease(
@@ -41,7 +47,7 @@ const applyToAllNotes = () => {
 
   //Reset the note prior
   if (currentItem > 0) {
-    mainMelody[currentItem - 1].noteObject.style.background = "";
+    setStyleToDefault(mainMelody[currentItem - 1].noteObject);
   }
 
   //Next item

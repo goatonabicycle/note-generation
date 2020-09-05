@@ -25,29 +25,26 @@ html(lang='en')
         .twelve.column(style='margin-top:5%')
 
           div(style="text-align:center")
-
-            div Key: 
+            div(class="title-item") Key: 
             div
               select(id="key" name="key" class="select-css")
                 each item in keys
                   option(value=item) #{item}
 
-            div(style="display: flex;flex-direction: row;justify-content: center;")
-              div Scales: 
-                div
-                  select(id="scale" name="scale" class="select-css")
-                    each item in allScales
-                      option(value=item) #{item}
+            div(class="title-item") Scale: 
+            div
+              select(id="scale" name="scale" class="select-css")
+                each item in allScales
+                  option(value=item) #{item}
 
-
-            div Number of notes: 
+            div(class="title-item") Number of notes: 
             div
               select(id="notes" name="notes" class="select-css")
                 -for(var i = 1;i<=16;i++){
                   option(value=i) #{i}
                   -}
 
-            div Tempo:  
+            div(class="title-item") Tempo:  
               div(id="tempo" style="display:inline") #{currentTempo}
 
             div(class="slidecontainer")
@@ -57,6 +54,7 @@ html(lang='en')
             div Randomized notes from 
               i #{allNotes}:       
             br 
+            br
             div(style="display: flex;flex-direction: row;justify-content: center;")
               each item in pattern
                 div(class="note-item") #{item}
@@ -68,7 +66,7 @@ html(lang='en')
             a(href="https://github.com/goatonabicycle/note-generation") Code here
             br                       
 
-script(src="js/options.js")
-script(src="js/patterns.js")
+            script(src="js/options.js")
+            script(src="js/patterns.js")
 
 

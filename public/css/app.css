@@ -10,21 +10,65 @@ a {
 }
 
 .note-item {
-  width: 50px;
-  border: 1px solid cadetblue;
-  border-radius: 15px;
+  width: 60px;
+  border: 1px solid #00b7ff;
+  border-radius: 25px;
   text-align: center;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.note-item.playing {
+  background-color: #00b7ff;
+  color: white;
+  text-decoration: underline;
+  transition: background-color 0.5s ease-out;
 }
 
 .slider {
   width: 400px;
+  color: #00b7ff;
 }
 
-button {
+input[type="range"] {
+  overflow: hidden;
+  width: 200px;
+  -webkit-appearance: none;
+  background-color: #9a905d;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 20px;
+  -webkit-appearance: none;
+  color: #00b7ff;
+  margin-top: -1px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 10px;
+  -webkit-appearance: none;
+  height: 20px;
+  cursor: ew-resize;
+  background: #434343;
+  box-shadow: -80px 0 0 80px #00b7ff;
+}
+
+.title-item {
+  display: inline-block;
+  font-size: 14px;
+  border-bottom: 2px solid #00b7ff;
+  padding: 0px 0px 2px 0px;
+  margin: 0px 0px 5px 0px;
+}
+
+button,
+button:focus {
   color: white;
 }
 
-button:hover {
+button:hover,
+button:active,
+button:visited {
   color: #00b7ff;
 }
 
