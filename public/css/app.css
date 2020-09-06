@@ -9,6 +9,12 @@ a {
   color: #00b7ff;
 }
 
+.hidden {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+
 .note-container {
   display: flex;
   flex-direction: row;

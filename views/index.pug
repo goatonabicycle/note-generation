@@ -55,12 +55,16 @@ html(lang='en')
               i #{allNotes}  
             br 
             br
+            div(id="current-pattern", class="hidden") #{pattern.toString()}
             div(class="note-container")
               each item in pattern
                 div(class="note-item") #{item}
             br
             button(id="play-button") Play
+
             button(id="refresh-button") Refresh
+            button(id="note-share-button") Share            
+
             br
             br
             a(href="https://github.com/goatonabicycle/note-generation", target="_blank") Code here
@@ -68,5 +72,6 @@ html(lang='en')
 
             script(src="js/options.js")
             script(src="js/patterns.js")
+            script(src="js/buttons.js")
 
 
