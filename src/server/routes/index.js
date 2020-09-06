@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { Scale } = require("tonal");
+const { Mode } = require("@tonaljs/tonal");
 
-const getRandomNotes = (numberOfNotes, withinRange = ["_", 1, 2, 3]) => {
+const getRandomNotes = (numberOfNotes, withinRange = []) => {
   let result = [];
 
   for (let item = 0; item < numberOfNotes; item++) {
@@ -13,19 +14,36 @@ const getRandomNotes = (numberOfNotes, withinRange = ["_", 1, 2, 3]) => {
   return result;
 };
 
-const buildRandomResult = (mode, notes, tempo) => {
-  const modes = ["A lydian", "B lydian", "C lydian"];
-  const baseNotes = Scale.notes(mode || "A lydian");
-  const numberOfNotes = notes || 4;
-  tempo = tempo || 120;
+const buildRandomResult = (scale, notes, tempo, key) => {
+  const keys = [
+    "A",
+    "Bb",
+    "B",
+    "C",
+    "Db",
+    "D",
+    "Eb",
+    "E",
+    "F",
+    "Gb",
+    "G",
+    "Ab",
+  ];
+
+  const baseKey = key || "C";
+  const baseScale = scale || "lydian";
+  const allScales = Mode.names();
+  const baseNotes = Scale.notes(baseKey + " " + baseScale);
+  const numberOfNotes = notes || 8;
 
   const randomNotes = getRandomNotes(numberOfNotes, baseNotes);
   const result = {
-    modes,
+    keys,
+    scale,
     pattern: randomNotes,
     allNotes: baseNotes,
     numberOfNotes,
-    tempo,
+    allScales,
   };
 
   return result;
@@ -33,21 +51,12 @@ const buildRandomResult = (mode, notes, tempo) => {
 
 router.get("/", async function (req, res, next) {
   const result = buildRandomResult(
-    req.query.mode,
+    req.query.scale,
     req.query.notes,
-    req.query.tempo
+    req.query.tempo,
+    req.query.key
   );
   res.render("index", result);
-});
-
-router.get("/random", async function (req, res, next) {
-  const result = buildRandomResult(
-    req.query.mode,
-    req.query.notes,
-    req.query.tempo
-  );
-
-  res.json(result);
 });
 
 module.exports = router;

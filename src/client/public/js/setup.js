@@ -2,7 +2,7 @@ import { setUrl } from "./utils.js";
 import { patterns } from "./patterns.js";
 
 const selectedNumberOfNotes = document.getElementById("notes");
-const selectedMode = document.getElementById("mode");
+const selectedScale = document.getElementById("scale");
 const selectedTempo = document.getElementById("tempo");
 const playButton = document.getElementById("play-button");
 const refreshButton = document.getElementById("refresh-button");
@@ -13,8 +13,8 @@ selectedNumberOfNotes.onchange = (sender) => {
   setUrl("notes", sender.value);
 };
 
-selectedMode.onchange = (sender) => {
-  setUrl("mode", sender.value);
+selectedScale.onchange = (sender) => {
+  setUrl("scale", sender.value);
 };
 
 selectedTempo.onchange = (sender) => {
@@ -23,7 +23,7 @@ selectedTempo.onchange = (sender) => {
 
 var href = new URL(window.location.href);
 selectedNumberOfNotes.value = href.searchParams.get("notes") || 4;
-selectedMode.value = href.searchParams.get("mode") || "A lydian";
+selectedScale.value = href.searchParams.get("mode") || "ionian";
 selectedTempo.value = href.searchParams.get("tempo") || "120";
 
 var patternsInstance = new patterns(noteObjects);

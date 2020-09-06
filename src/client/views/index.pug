@@ -1,6 +1,13 @@
 doctype html
 html(lang='en')
   head    
+    script(async src="https://www.googletagmanager.com/gtag/js?id=UA-177268419-1")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-177268419-1');  
+
     meta(charset='utf-8')
     title Pattern Generation
     meta(name='description' content='')
@@ -8,45 +15,61 @@ html(lang='en')
     meta(name='viewport' content='width=device-width, initial-scale=1')   
     link(rel='stylesheet' href='css/normalize.css')
     link(rel='stylesheet' href='css/skeleton.css')    
-    link(rel='stylesheet' href='css/app.css')    
+    link(rel='stylesheet' href='css/app.css')        
     link(rel='icon' type='image/png' href='images/favicon.png')
 
     script(src="https://unpkg.com/tone")   
   body    
     .container
       .row
-        .twelve.column(style='margin-top: 25%')
+        .twelve.column(style='margin-top:5%')
 
-          div(style="")
-
-            div Mode: 
+          div(style="text-align:center")
+            div(class="title-item") Key: 
             div
-              select(id="mode" name="mode")
-                each item in modes
+              select(id="key" name="key" class="select-css")
+                each item in keys
                   option(value=item) #{item}
 
-            br
-            div Number of notes: 
+            div(class="title-item") Scale: 
             div
-              select(id="notes" name="notes")
+              select(id="scale" name="scale" class="select-css")
+                each item in allScales
+                  option(value=item) #{item}
+
+            div(class="title-item") Number of notes: 
+            div
+              select(id="notes" name="notes" class="select-css")
                 -for(var i = 1;i<=16;i++){
                   option(value=i) #{i}
                   -}
 
-            div Tempo: 
-            div(id="tempo" style="display:inline") #{tempo}
+            div(class="title-item") Tempo:  
+              div(id="tempo" style="display:inline") #{currentTempo}
+
+            div(class="slidecontainer")
+              input(type="range" min="40" max="600" step="10" value=currentTempo class="slider" id="tempoRange")
+
             br
+            div Randomized notes from 
+              i #{allNotes}  
+            br 
             br
-            div Base notes: #{allNotes}
-            br          
-            div(style="display: flex;flex-direction: row;")
+            div(id="current-pattern", class="hidden") #{pattern.toString()}
+            div(class="note-container")
               each item in pattern
                 div(class="note-item") #{item}
             br
             button(id="play-button") Play
-            button(id="refresh-button") Refresh
-            br
-            br
 
-            a(href="https://github.com/goatonabicycle/note-generation") https://github.com/goatonabicycle/note-generation
+            button(id="refresh-button") Refresh
+            button(id="note-share-button") Share            
+
+            br
+            br
+            a(href="https://github.com/goatonabicycle/note-generation", target="_blank") Code here
+            br                       
+
 script(type="module" src="js/setup.js")
+
+
