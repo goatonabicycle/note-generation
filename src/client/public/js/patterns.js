@@ -14,7 +14,7 @@ const mainMelody = [];
 
 noteObjects.forEach((element, index) => {
   mainMelody.push({
-    note: element.outerText + "2",
+    note: element.innerHTML + "2",
     duration: "8n",
     noteObject: element,
   });
