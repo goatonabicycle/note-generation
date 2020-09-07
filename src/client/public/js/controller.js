@@ -16,31 +16,25 @@ const selectedScale = document.getElementById("scale");
 const noteObjects = document.querySelectorAll(".note-item");
 const currentPattern = document.getElementById("current-pattern").innerText;
 
-const setStyleToPlaying = function(nodeItem){
-  nodeItem.classList.add("playing");
+function updateUI(state) {
+    //Set current playing note with color
+    noteObjects[noteObjects.length - 1].classList.remove("playing");
+
+    noteObjects[state.currentItem].classList.add("playing");
+
+    if (state.currentItem > 0) {
+        noteObjects[state.currentItem - 1].classList.remove("playing");
+    }
+
+    //set Tempo slider text
+    selectedTempo.innerHTML = state.tempo;
+    window.localStorage.setItem("tempo", state.tempo);
 };
 
-const setStyleToDefault = function(nodeItem){
-  nodeItem.classList.remove("playing");
-};
-
-function updateNotePlaying(index) {
-  //Clear out the last item
-  setStyleToDefault(noteObjects[noteObjects.length - 1]);
-
-  //Which item are we dealing with?
-  setStyleToPlaying(noteObjects[index]);
-
-  //Reset the note prior
-  if (index > 0) {
-    setStyleToDefault(noteObjects[index - 1]);
-  }
-};
-
-var patternsInstance = new patterns(noteObjects, tempoSlider.value, updateNotePlaying);
+var patternsInstance = new patterns(noteObjects, tempoSlider.value, updateUI);
 
 playButton.addEventListener("click", async () => {
-    const playing = await patternsInstance.play(updateNotePlaying);
+    const playing = await patternsInstance.play();
     playButton.innerHTML = playing ? "Stop" : "Play";
 });
 
@@ -56,8 +50,6 @@ shareButton.addEventListener("click", async () => {
 tempoSlider.onchange = () => {
     const tempo = tempoSlider.value;
     patternsInstance.updateTempo(tempo);
-    selectedTempo.innerHTML = tempo;
-    window.localStorage.setItem("tempo", tempo);
 };
 
 const setUrlQueryParam = (key) => (sender) => {

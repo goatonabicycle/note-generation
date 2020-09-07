@@ -1,10 +1,10 @@
-function patterns(noteObjects, tempo, updateCallback) {
+function patterns(noteObjects, tempo, updateUIFromState) {
   this.currentItem = 0;
   this.timer = 0;
   this.tempo = tempo;
   this.mainMelody = [];
   this.playing = false;
-  this.updateCallback = updateCallback;
+  this.updateUIFromState = updateUIFromState;
 
   noteObjects.forEach((element, index) => {
     this.mainMelody.push({
@@ -39,7 +39,7 @@ patterns.prototype.applyToAllNotes = function() {
   if (this.currentItem === this.mainMelody.length) this.currentItem = 0;
 
   //update UI
-  this.updateCallback(this.currentItem);
+  this.updateUIFromState({ currentItem: this.currentItem, tempo: this.tempo });
 };
 
 patterns.prototype.play = async function () {
@@ -61,6 +61,9 @@ patterns.prototype.updateTempo = function(tempo) {
   if (this.playing) {
     this.replayLoop();
   }
+
+  //update UI
+  this.updateUIFromState({ currentItem: this.currentItem, tempo: this.tempo });
 }
 
 patterns.prototype.replayLoop =  function(){
