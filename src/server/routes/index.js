@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { Scale } = require("tonal");
-const { Mode } = require("@tonaljs/tonal");
+const {
+  Scale
+} = require("tonal");
+const {
+  Mode
+} = require("@tonaljs/tonal");
 
 const getRandomNotes = (numberOfNotes, withinRange = []) => {
   let result = [];
