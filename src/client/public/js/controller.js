@@ -16,10 +16,31 @@ const selectedScale = document.getElementById("scale");
 const noteObjects = document.querySelectorAll(".note-item");
 const currentPattern = document.getElementById("current-pattern").innerText;
 
-var patternsInstance = new patterns(noteObjects, tempoSlider.value);
+const setStyleToPlaying = function(nodeItem){
+  nodeItem.classList.add("playing");
+};
+
+const setStyleToDefault = function(nodeItem){
+  nodeItem.classList.remove("playing");
+};
+
+function updateNotePlaying(index) {
+  //Clear out the last item
+  setStyleToDefault(noteObjects[noteObjects.length - 1]);
+
+  //Which item are we dealing with?
+  setStyleToPlaying(noteObjects[index]);
+
+  //Reset the note prior
+  if (index > 0) {
+    setStyleToDefault(noteObjects[index - 1]);
+  }
+};
+
+var patternsInstance = new patterns(noteObjects, tempoSlider.value, updateNotePlaying);
 
 playButton.addEventListener("click", async () => {
-    const playing = await patternsInstance.play();
+    const playing = await patternsInstance.play(updateNotePlaying);
     playButton.innerHTML = playing ? "Stop" : "Play";
 });
 
@@ -32,7 +53,7 @@ shareButton.addEventListener("click", async () => {
     alert(`Coming soon! But your pattern is: ${currentPattern} `);
 });
 
-tempoSlider.onchange = async () => {
+tempoSlider.onchange = () => {
     const tempo = tempoSlider.value;
     patternsInstance.updateTempo(tempo);
     selectedTempo.innerHTML = tempo;

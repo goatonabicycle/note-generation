@@ -1,9 +1,10 @@
-function patterns(noteObjects, tempo) {
+function patterns(noteObjects, tempo, updateCallback) {
   this.currentItem = 0;
   this.timer = 0;
   this.tempo = tempo;
   this.mainMelody = [];
   this.playing = false;
+  this.updateCallback = updateCallback;
 
   noteObjects.forEach((element, index) => {
     this.mainMelody.push({
@@ -21,23 +22,9 @@ patterns.prototype.synth =  new Tone.Synth({
     },
   }).toDestination();
 
-patterns.prototype.setStyleToPlaying = function(nodeItem){
-  nodeItem.classList.add("playing");
-};
-
-patterns.prototype.setStyleToDefault = function(nodeItem){
-  nodeItem.classList.remove("playing");
-};
 
 patterns.prototype.applyToAllNotes = function() {
-  if (this.currentItem === this.mainMelody.length) this.currentItem = 0;
-
-  //Clear out the last item
-  this.setStyleToDefault(this.mainMelody[this.mainMelody.length - 1].noteObject);
-
-  //Which item are we dealing with?
   const currentNote = this.mainMelody[this.currentItem];
-  this.setStyleToPlaying(currentNote.noteObject);
 
   //play the sound for this item
   this.synth.triggerAttackRelease(
@@ -46,13 +33,13 @@ patterns.prototype.applyToAllNotes = function() {
     currentNote.time
   );
 
-  //Reset the note prior
-  if (this.currentItem > 0) {
-    this.setStyleToDefault(this.mainMelody[this.currentItem - 1].noteObject);
-  }
-
   //Next item
   this.currentItem++;
+
+  if (this.currentItem === this.mainMelody.length) this.currentItem = 0;
+
+  //update UI
+  this.updateCallback(this.currentItem);
 };
 
 patterns.prototype.play = async function () {
