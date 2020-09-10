@@ -15,15 +15,15 @@ function patterns(noteObjects, tempo, updateUIFromState) {
   });
 }
 
-patterns.prototype.synth =  new Tone.Synth({
-    oscillator: {
-      count: 4,
-      // type: "fatsawtooth",
-    },
-  }).toDestination();
+patterns.prototype.synth = new Tone.Synth({
+  oscillator: {
+    count: 4,
+    // type: "fatsawtooth",
+  },
+}).toDestination();
 
 
-patterns.prototype.applyToAllNotes = function() {
+patterns.prototype.loopThroughNotes = function () {
   const currentNote = this.mainMelody[this.currentItem];
 
   //play the sound for this item
@@ -39,37 +39,43 @@ patterns.prototype.applyToAllNotes = function() {
   if (this.currentItem === this.mainMelody.length) this.currentItem = 0;
 
   //update UI
-  this.updateUIFromState({ currentItem: this.currentItem, tempo: this.tempo });
+  this.updateUIFromState({
+    currentItem: this.currentItem,
+    tempo: this.tempo
+  });
 };
 
 patterns.prototype.play = async function () {
-    await Tone.start();
-    if (this.playing) {
-        clearInterval(this.timer);
-        this.playing = false;
-        return this.playing;
-    }
-    this.applyToAllNotes();
-    const tempo = 60000 / this.tempo;
-    this.timer = setInterval(this.applyToAllNotes.bind(this), tempo); //applyToAllNotes gets executed from Window context, bind this so that we have to instance properties.
-    this.playing = true;
+  await Tone.start();
+  if (this.playing) {
+    clearInterval(this.timer);
+    this.playing = false;
     return this.playing;
+  }
+  this.loopThroughNotes();
+  const tempo = 60000 / this.tempo;
+  this.timer = setInterval(this.loopThroughNotes.bind(this), tempo); //applyToAllNotes gets executed from Window context, bind this so that we have to instance properties.
+  this.playing = true;
+  return this.playing;
 };
 
-patterns.prototype.updateTempo = function(tempo) {
+patterns.prototype.updateTempo = function (tempo) {
   this.tempo = tempo;
   if (this.playing) {
-    this.replayLoop();
+    this.loopWithNewTempo();
   }
 
   //update UI
-  this.updateUIFromState({ currentItem: this.currentItem, tempo: this.tempo });
+  this.updateUIFromState({
+    currentItem: this.currentItem,
+    tempo: this.tempo
+  });
 }
 
-patterns.prototype.replayLoop =  function(){
-    clearInterval(this.timer);
-    const tempo = 60000 / this.tempo;
-    this.timer = setInterval(this.applyToAllNotes.bind(this), tempo);//applyToAllNotes gets executed from Window context, bind this so that we have to instance properties.
+patterns.prototype.loopWithNewTempo = function () {
+  clearInterval(this.timer);
+  const tempo = 60000 / this.tempo;
+  this.timer = setInterval(this.loopThroughNotes.bind(this), tempo); //applyToAllNotes gets executed from Window context, bind this so that we have to instance properties.
 };
 
 export {
