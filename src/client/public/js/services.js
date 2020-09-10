@@ -33,16 +33,16 @@ patterns.prototype.loopThroughNotes = function () {
     currentNote.time
   );
 
-  //Next item
-  this.currentItem++;
-
-  if (this.currentItem === this.mainMelody.length) this.currentItem = 0;
-
   //update UI
   this.updateUIFromState({
     currentItem: this.currentItem,
     tempo: this.tempo
   });
+
+  //Next item
+  this.currentItem++;
+
+  if (this.currentItem === this.mainMelody.length) this.currentItem = 0;
 };
 
 patterns.prototype.play = async function () {

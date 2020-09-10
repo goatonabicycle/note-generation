@@ -6,7 +6,7 @@ import {
 } from "./services.js"
 
 const playButton = document.getElementById("play-button");
-const shareButton = document.getElementById("note-share-button"); // "Share button is blocked by ad blockers. Amazing."
+const shareButton = document.getElementById("note-share-button");
 const refreshButton = document.getElementById("refresh-button");
 const tempoSlider = document.getElementById("tempoRange");
 const selectedTempo = document.getElementById("tempo") || "240";
@@ -25,10 +25,6 @@ function updateUI(state) {
     if (state.currentItem > 0) {
         noteObjects[state.currentItem - 1].classList.remove("playing");
     }
-
-    //set Tempo slider text
-    selectedTempo.innerHTML = state.tempo;
-    window.localStorage.setItem("tempo", state.tempo);
 };
 
 var patternsInstance = new patterns(noteObjects, tempoSlider.value, updateUI);
@@ -50,6 +46,8 @@ shareButton.addEventListener("click", async () => {
 tempoSlider.onchange = () => {
     const tempo = tempoSlider.value;
     patternsInstance.updateTempo(tempo);
+    selectedTempo.innerHTML = tempo;
+    window.localStorage.setItem("tempo", tempo);
 };
 
 const setUrlQueryParam = (key) => (sender) => {
@@ -63,5 +61,9 @@ selectedScale.onchange = setUrlQueryParam("scale");
 var href = new URL(window.location.href);
 selectedNumberOfNotes.value = href.searchParams.get("notes") || 8;
 selectedScale.value = href.searchParams.get("scale") || "lydian";
-selectedTempo.value = href.searchParams.get("tempo") || "240";
 selectedKey.value = href.searchParams.get("key") || "C";
+
+const initialTempo = window.localStorage.getItem("tempo") || "240"
+tempoSlider.value = initialTempo;
+selectedTempo.innerHTML = initialTempo;
+patternsInstance.updateTempo(initialTempo);

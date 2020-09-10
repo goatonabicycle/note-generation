@@ -18,7 +18,7 @@ const getRandomNotes = (numberOfNotes, withinRange = []) => {
   return result;
 };
 
-const buildRandomResult = (scale, notes, tempo, key) => {
+const buildRandomResult = (scale, notes, key) => {
   const keys = [
     "A",
     "Bb",
@@ -57,7 +57,6 @@ router.get("/", async function (req, res, next) {
   const result = buildRandomResult(
     req.query.scale,
     req.query.notes,
-    req.query.tempo,
     req.query.key
   );
   res.render("index", result);
