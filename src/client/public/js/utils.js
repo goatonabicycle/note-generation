@@ -6,6 +6,17 @@ const setUrl = (parameterName, target) => {
   }
 };
 
+const createSharableUrl = (params = []) => {
+  var href = new URL(window.location.href);
+
+  params.forEach((item) => {
+    href.searchParams.set(item.name, item.value);
+  })
+
+  return href.href;
+};
+
 export {
-  setUrl
+  setUrl,
+  createSharableUrl
 }

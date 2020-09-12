@@ -1,5 +1,10 @@
-import { setUrl } from "./utils.js";
-import { patterns } from "./services.js";
+import {
+  setUrl,
+  createSharableUrl
+} from "./utils.js";
+import {
+  patterns
+} from "./patterns.js";
 
 const playButton = document.getElementById("play-button");
 const shareButton = document.getElementById("note-share-button");
@@ -35,8 +40,24 @@ refreshButton.addEventListener("click", async () => {
 });
 
 shareButton.addEventListener("click", async () => {
-  //todo: Build the url with all selected items and current set of random notes here.
-  alert(`Coming soon! But your pattern is: ${currentPattern} `);
+  function shareParameter(name, value) {
+    this.name = name;
+    this.value = value;
+  }
+
+  const shareParameterArray = [];
+  shareParameterArray.push(new shareParameter("key", selectedKey.value));
+  shareParameterArray.push(new shareParameter("scale", selectedScale.value));
+  shareParameterArray.push(
+    new shareParameter("notes", selectedNumberOfNotes.value)
+  );
+  shareParameterArray.push(
+    new shareParameter("tempo", window.localStorage.getItem("tempo"))
+  );
+  shareParameterArray.push(new shareParameter("pattern", currentPattern));
+
+  const shareableUrl = createSharableUrl(shareParameterArray);
+  console.log("shareableUrl", shareableUrl);
 });
 
 tempoSlider.onchange = () => {
