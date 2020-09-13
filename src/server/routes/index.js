@@ -34,19 +34,20 @@ const buildRandomResult = (scale, notes, key) => {
     "Ab",
   ];
 
-  const baseKey = key || "C";
-  const baseScale = scale || "lydian";
+  const selectedKey = key || "C";
+  const selectedScale = scale || "lydian";
   const allScales = Mode.names();
-  const baseNotes = Scale.notes(baseKey + " " + baseScale);
-  const numberOfNotes = notes || 8;
+  const baseNotes = Scale.notes(selectedKey + " " + selectedScale);
+  const selectedNumberOfNotes = notes || 8;
 
-  const randomNotes = getRandomNotes(numberOfNotes, baseNotes);
+  const randomNotes = getRandomNotes(selectedNumberOfNotes, baseNotes);
   const result = {
-    keys,
-    scale,
     pattern: randomNotes,
+    selectedScale,
+    selectedKey,
+    selectedNumberOfNotes,
+    keys,
     allNotes: baseNotes,
-    numberOfNotes,
     allScales,
   };
 

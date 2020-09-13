@@ -75,11 +75,6 @@ selectedNumberOfNotes.onchange = setUrlQueryParam("notes");
 selectedKey.onchange = setUrlQueryParam("key");
 selectedScale.onchange = setUrlQueryParam("scale");
 
-var href = new URL(window.location.href);
-selectedNumberOfNotes.value = href.searchParams.get("notes") || 8;
-selectedScale.value = href.searchParams.get("scale") || "lydian";
-selectedKey.value = href.searchParams.get("key") || "C";
-
 const initialTempo = window.localStorage.getItem("tempo") || "240";
 tempoSlider.value = initialTempo;
 selectedTempo.innerHTML = initialTempo;

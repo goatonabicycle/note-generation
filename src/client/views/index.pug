@@ -18,7 +18,7 @@ html(lang='en')
     link(rel='stylesheet' href='css/app.css')        
     link(rel='icon' type='image/png' href='images/favicon.png')
 
-    script(src="https://unpkg.com/tone")   
+    script(src="https://unpkg.com/tone")       
   body    
     .container
       .row
@@ -29,19 +29,19 @@ html(lang='en')
             div
               select(id="key" name="key" class="select-css")
                 each item in keys
-                  option(value=item) #{item}
+                  option(value=item selected=(item == selectedKey)) #{item}
 
             div(class="title-item") Scale: 
             div
               select(id="scale" name="scale" class="select-css")
                 each item in allScales
-                  option(value=item) #{item}
+                  option(value=item selected=(item == selectedScale)) #{item}
 
             div(class="title-item") Number of notes: 
             div
               select(id="notes" name="notes" class="select-css")
                 -for(var i = 1;i<=16;i++){
-                  option(value=i) #{i}
+                  option(value=i selected=(i == selectedNumberOfNotes)) #{i}
                   -}
 
             div(class="title-item") Tempo:  
