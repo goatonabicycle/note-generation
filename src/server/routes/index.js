@@ -18,7 +18,7 @@ const getRandomNotes = (numberOfNotes, withinRange = []) => {
   return result;
 };
 
-const buildRandomResult = (scale, notes, key) => {
+const buildRandomResult = (query) => {
   const keys = [
     "A",
     "Bb",
@@ -34,6 +34,11 @@ const buildRandomResult = (scale, notes, key) => {
     "Ab",
   ];
 
+  const {
+    scale,
+    notes,
+    key
+  } = query
   const selectedKey = key || "C";
   const selectedScale = scale || "lydian";
   const allScales = Mode.names();
@@ -55,11 +60,7 @@ const buildRandomResult = (scale, notes, key) => {
 };
 
 router.get("/", async function (req, res, next) {
-  const result = buildRandomResult(
-    req.query.scale,
-    req.query.notes,
-    req.query.key
-  );
+  const result = buildRandomResult(req.query);
   res.render("index", result);
 });
 

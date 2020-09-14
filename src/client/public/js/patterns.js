@@ -75,7 +75,7 @@ patterns.prototype.updateTempo = function (tempo) {
 patterns.prototype.loopWithNewTempo = function () {
   clearInterval(this.timer);
   const tempo = 60000 / this.tempo;
-  this.timer = setInterval(this.loopThroughNotes.bind(this), tempo); //applyToAllNotes gets executed from Window context, bind this so that we have to instance properties.
+  this.timer = setInterval(this.loopThroughNotes.bind(this), tempo); //loopThroughNotes gets executed from Window context, bind this so that we have to instance properties.
 };
 
 export {
