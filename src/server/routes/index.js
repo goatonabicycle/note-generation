@@ -37,15 +37,21 @@ const buildRandomResult = (query) => {
   const {
     scale,
     notes,
-    key
+    key,
+    pattern
   } = query
+
+  // if (pattern) {
+  //   console.log("Woah! You already have a pattern -> " + pattern)
+  // } else {}
+
   const selectedKey = key || "C";
   const selectedScale = scale || "lydian";
   const allScales = Mode.names();
   const baseNotes = Scale.notes(selectedKey + " " + selectedScale);
   const selectedNumberOfNotes = notes || 8;
 
-  const randomNotes = getRandomNotes(selectedNumberOfNotes, baseNotes);
+  const randomNotes = pattern || getRandomNotes(selectedNumberOfNotes, baseNotes);
   const result = {
     pattern: randomNotes,
     selectedScale,

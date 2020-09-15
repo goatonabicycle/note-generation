@@ -60,10 +60,11 @@ html(lang='en')
               each item in pattern
                 div(class="note-item") #{item}
             br
-            button(id="play-button") Play
-
-            button(id="refresh-button") Refresh
-            button(id="note-share-button") Share            
+            div()
+              button(id="play-button") Play
+              button(id="refresh-button") New Notes
+              button(id="note-share-button") Share            
+            div(id="share-url")
 
             br
             br

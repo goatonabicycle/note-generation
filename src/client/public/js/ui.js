@@ -1,10 +1,5 @@
-import {
-  setUrl,
-  createSharableUrl
-} from "./utils.js";
-import {
-  patterns
-} from "./patterns.js";
+import { setUrl, createSharableUrl } from "./utils.js";
+import { patterns } from "./patterns.js";
 
 const playButton = document.getElementById("play-button");
 const shareButton = document.getElementById("note-share-button");
@@ -16,6 +11,8 @@ const selectedKey = document.getElementById("key");
 const selectedScale = document.getElementById("scale");
 const noteObjects = document.querySelectorAll(".note-item");
 const currentPattern = document.getElementById("current-pattern").innerText;
+
+const sharePanel = document.getElementById("share-url");
 
 function updateUI(state) {
   //Set current playing note with color
@@ -54,9 +51,12 @@ shareButton.addEventListener("click", async () => {
   shareParameterArray.push(
     new shareParameter("tempo", window.localStorage.getItem("tempo"))
   );
-  shareParameterArray.push(new shareParameter("pattern", currentPattern));
+  shareParameterArray.push(
+    new shareParameter("pattern", currentPattern.replace(",", ""))
+  );
 
   const shareableUrl = createSharableUrl(shareParameterArray);
+  sharePanel.innerHTML = shareableUrl;
   console.log("shareableUrl", shareableUrl);
 });
 
