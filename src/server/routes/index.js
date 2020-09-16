@@ -41,9 +41,9 @@ const buildRandomResult = (query) => {
     pattern
   } = query
 
-  // if (pattern) {
-  //   console.log("Woah! You already have a pattern -> " + pattern)
-  // } else {}
+  if (pattern) {
+    console.log("Woah! You already have a pattern -> " + pattern)
+  } else {}
 
   const selectedKey = key || "C";
   const selectedScale = scale || "lydian";
@@ -51,7 +51,14 @@ const buildRandomResult = (query) => {
   const baseNotes = Scale.notes(selectedKey + " " + selectedScale);
   const selectedNumberOfNotes = notes || 8;
 
-  const randomNotes = pattern || getRandomNotes(selectedNumberOfNotes, baseNotes);
+  console.log({
+    pattern
+  })
+  const randomNotes = pattern.replace(",", "") || getRandomNotes(selectedNumberOfNotes, baseNotes);
+  console.log({
+    randomNotes
+  })
+
   const result = {
     pattern: randomNotes,
     selectedScale,
