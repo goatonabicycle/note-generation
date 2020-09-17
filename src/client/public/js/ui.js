@@ -1,6 +1,7 @@
 import {
   setUrl,
-  createSharableUrl
+  createSharableUrl,
+  removeUrlParameter
 } from "./utils.js";
 import {
   patterns
@@ -39,8 +40,10 @@ playButton.addEventListener("click", async () => {
   playButton.innerHTML = playing ? "Stop" : "Play";
 });
 
+
+
 refreshButton.addEventListener("click", async () => {
-  document.location.reload(true);
+  document.location = removeUrlParameter(document.location + '', "pattern");
 });
 
 shareButton.addEventListener("click", async () => {
@@ -52,14 +55,15 @@ shareButton.addEventListener("click", async () => {
   const shareParameterArray = [];
   shareParameterArray.push(new shareParameter("key", selectedKey.value));
   shareParameterArray.push(new shareParameter("scale", selectedScale.value));
+
   shareParameterArray.push(
     new shareParameter("notes", selectedNumberOfNotes.value)
   );
   shareParameterArray.push(
-    new shareParameter("tempo", window.localStorage.getItem("tempo"))
+    new shareParameter("tempo", tempoSlider.value)
   );
   shareParameterArray.push(
-    new shareParameter("pattern", currentPattern.replace(",", ""))
+    new shareParameter("pattern", currentPattern)
   );
 
   const shareableUrl = createSharableUrl(shareParameterArray);

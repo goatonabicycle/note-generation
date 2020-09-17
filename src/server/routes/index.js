@@ -51,7 +51,8 @@ const buildRandomResult = (query) => {
 
   let randomNotes = "";
   if (pattern) {
-    randomNotes = pattern.replace(/,/g, "");
+    randomNotes = pattern.split(',');
+
     console.log("Woah! You already have a pattern -> " + pattern);
   } else {
     randomNotes = getRandomNotes(selectedNumberOfNotes, baseNotes);
