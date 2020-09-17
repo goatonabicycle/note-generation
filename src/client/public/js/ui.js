@@ -1,11 +1,18 @@
-import { setUrl, createSharableUrl } from "./utils.js";
-import { patterns } from "./patterns.js";
+import {
+  setUrl,
+  createSharableUrl
+} from "./utils.js";
+import {
+  patterns
+} from "./patterns.js";
+
+const defaultTempo = "240"
 
 const playButton = document.getElementById("play-button");
 const shareButton = document.getElementById("note-share-button");
 const refreshButton = document.getElementById("refresh-button");
 const tempoSlider = document.getElementById("tempoRange");
-const selectedTempo = document.getElementById("tempo") || "240";
+const selectedTempo = document.getElementById("tempo") || defaultTempo;
 const selectedNumberOfNotes = document.getElementById("notes");
 const selectedKey = document.getElementById("key");
 const selectedScale = document.getElementById("scale");
@@ -75,7 +82,7 @@ selectedNumberOfNotes.onchange = setUrlQueryParam("notes");
 selectedKey.onchange = setUrlQueryParam("key");
 selectedScale.onchange = setUrlQueryParam("scale");
 
-const initialTempo = window.localStorage.getItem("tempo") || "240";
+const initialTempo = window.localStorage.getItem("tempo") || defaultTempo;
 tempoSlider.value = initialTempo;
 selectedTempo.innerHTML = initialTempo;
 patternsInstance.updateTempo(initialTempo);

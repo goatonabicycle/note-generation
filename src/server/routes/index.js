@@ -7,9 +7,10 @@ const {
   Mode
 } = require("@tonaljs/tonal");
 
+const defaultValues = require("../../defaultValues");
+
 const getRandomNotes = (numberOfNotes, withinRange = []) => {
   let result = [];
-
   for (let item = 0; item < numberOfNotes; item++) {
     const element = withinRange[Math.floor(Math.random() * withinRange.length)];
     result.push(element);
@@ -39,25 +40,22 @@ const buildRandomResult = (query) => {
     notes,
     key,
     pattern
-  } = query
+  } = query;
 
-  if (pattern) {
-    console.log("Woah! You already have a pattern -> " + pattern)
-  } else {}
 
-  const selectedKey = key || "C";
-  const selectedScale = scale || "lydian";
+  const selectedKey = key || defaultValues.key;
+  const selectedScale = scale || defaultValues.scale;
   const allScales = Mode.names();
   const baseNotes = Scale.notes(selectedKey + " " + selectedScale);
-  const selectedNumberOfNotes = notes || 8;
+  const selectedNumberOfNotes = notes || defaultValues.notes;
 
-  console.log({
-    pattern
-  })
-  const randomNotes = pattern.replace(",", "") || getRandomNotes(selectedNumberOfNotes, baseNotes);
-  console.log({
-    randomNotes
-  })
+  let randomNotes = "";
+  if (pattern) {
+    randomNotes = pattern.replace(/,/g, "");
+    console.log("Woah! You already have a pattern -> " + pattern);
+  } else {
+    randomNotes = getRandomNotes(selectedNumberOfNotes, baseNotes);
+  }
 
   const result = {
     pattern: randomNotes,
