@@ -1,7 +1,8 @@
 import {
   setUrl,
   createSharableUrl,
-  removeUrlParameter
+  removeUrlParameter,
+  copyStringToClipboard
 } from "./utils.js";
 import {
   patterns
@@ -67,7 +68,15 @@ shareButton.addEventListener("click", async () => {
   );
 
   const shareableUrl = createSharableUrl(shareParameterArray);
-  sharePanel.innerHTML = shareableUrl;
+  sharePanel.innerText = shareableUrl;
+
+
+  const copiedNotification = document.createElement("div");
+  const copiedTextElement = document.createTextNode("Copied to your clipboard!");
+  copiedNotification.appendChild(copiedTextElement);
+  sharePanel.append(copiedNotification);
+
+  copyStringToClipboard(shareableUrl)
   console.log("shareableUrl", shareableUrl);
 });
 

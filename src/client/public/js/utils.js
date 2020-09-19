@@ -41,8 +41,24 @@ function removeUrlParameter(url, parameter) {
   return url;
 }
 
+
+function copyStringToClipboard(textToCopy) {
+  var el = document.createElement('textarea');
+  el.value = textToCopy;
+  el.setAttribute('readonly', '');
+  el.style = {
+    position: 'absolute',
+    left: '-9999px'
+  };
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+}
+
 export {
   setUrl,
   createSharableUrl,
-  removeUrlParameter
+  removeUrlParameter,
+  copyStringToClipboard
 }
