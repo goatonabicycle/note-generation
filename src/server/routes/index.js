@@ -7,9 +7,10 @@ const {
   Mode
 } = require("@tonaljs/tonal");
 
+const defaultValues = require("../../defaultValues");
+
 const getRandomNotes = (numberOfNotes, withinRange = []) => {
   let result = [];
-
   for (let item = 0; item < numberOfNotes; item++) {
     const element = withinRange[Math.floor(Math.random() * withinRange.length)];
     result.push(element);
@@ -18,7 +19,7 @@ const getRandomNotes = (numberOfNotes, withinRange = []) => {
   return result;
 };
 
-const buildRandomResult = (scale, notes, key) => {
+const buildRandomResult = (query) => {
   const keys = [
     "A",
     "Bb",
@@ -34,19 +35,36 @@ const buildRandomResult = (scale, notes, key) => {
     "Ab",
   ];
 
-  const baseKey = key || "C";
-  const baseScale = scale || "lydian";
-  const allScales = Mode.names();
-  const baseNotes = Scale.notes(baseKey + " " + baseScale);
-  const numberOfNotes = notes || 8;
-
-  const randomNotes = getRandomNotes(numberOfNotes, baseNotes);
-  const result = {
-    keys,
+  const {
     scale,
+    notes,
+    key,
+    pattern
+  } = query;
+
+
+  const selectedKey = key || defaultValues.key;
+  const selectedScale = scale || defaultValues.scale;
+  const allScales = Mode.names();
+  const baseNotes = Scale.notes(selectedKey + " " + selectedScale);
+  const selectedNumberOfNotes = notes || defaultValues.notes;
+
+  let randomNotes = "";
+  if (pattern) {
+    randomNotes = pattern.split(',');
+
+    console.log("Woah! You already have a pattern -> " + pattern);
+  } else {
+    randomNotes = getRandomNotes(selectedNumberOfNotes, baseNotes);
+  }
+
+  const result = {
     pattern: randomNotes,
+    selectedScale,
+    selectedKey,
+    selectedNumberOfNotes,
+    keys,
     allNotes: baseNotes,
-    numberOfNotes,
     allScales,
   };
 
@@ -54,11 +72,7 @@ const buildRandomResult = (scale, notes, key) => {
 };
 
 router.get("/", async function (req, res, next) {
-  const result = buildRandomResult(
-    req.query.scale,
-    req.query.notes,
-    req.query.key
-  );
+  const result = buildRandomResult(req.query);
   res.render("index", result);
 });
 

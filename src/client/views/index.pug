@@ -18,7 +18,7 @@ html(lang='en')
     link(rel='stylesheet' href='css/app.css')        
     link(rel='icon' type='image/png' href='images/favicon.png')
 
-    script(src="https://unpkg.com/tone")   
+    script(src="https://unpkg.com/tone")       
   body    
     .container
       .row
@@ -29,19 +29,19 @@ html(lang='en')
             div
               select(id="key" name="key" class="select-css")
                 each item in keys
-                  option(value=item) #{item}
+                  option(value=item selected=(item == selectedKey)) #{item}
 
             div(class="title-item") Scale: 
             div
               select(id="scale" name="scale" class="select-css")
                 each item in allScales
-                  option(value=item) #{item}
+                  option(value=item selected=(item == selectedScale)) #{item}
 
             div(class="title-item") Number of notes: 
             div
               select(id="notes" name="notes" class="select-css")
                 -for(var i = 1;i<=16;i++){
-                  option(value=i) #{i}
+                  option(value=i selected=(i == selectedNumberOfNotes)) #{i}
                   -}
 
             div(class="title-item") Tempo:  
@@ -60,16 +60,17 @@ html(lang='en')
               each item in pattern
                 div(class="note-item") #{item}
             br
-            button(id="play-button") Play
-
-            button(id="refresh-button") Refresh
-            button(id="note-share-button") Share            
+            div()
+              button(id="play-button") Play
+              button(id="refresh-button") New Notes
+              button(id="note-share-button") Share            
+            div(id="share-url" class="copy-share-url")
 
             br
             br
             a(href="https://github.com/goatonabicycle/note-generation", target="_blank") Code here
             br                       
 
-            script(src="js/controller.js", type="module")
+            script(src="js/ui.js", type="module")
 
 
