@@ -34,7 +34,7 @@ function updateUI(state) {
   }
 }
 
-var patternsInstance = new patterns(noteObjects, tempoSlider.value, updateUI);
+var patternsInstance = new patterns(Tone, noteObjects, tempoSlider.value, updateUI);
 
 playButton.addEventListener("click", async () => {
   const playing = await patternsInstance.play();

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./src/server/app.js",
-    "ui": "browser-sync start --proxy=localhost:8000 --files='**/*.css, **/*.jade, **/*.js' --ignore=node_modules --reload-delay 10 --no-ui --no-notify"
+    "ui": "browser-sync start --proxy=localhost:8000 --files='**/*.css, **/*.jade, **/*.js' --ignore=node_modules --reload-delay 10 --no-ui --no-notify",
+    "test": "jest"
   },
   "dependencies": {
     "@tonaljs/tonal": "^4.2.1",
