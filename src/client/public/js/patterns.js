@@ -5,7 +5,7 @@ function patterns(Tone, noteObjects, tempo, updateUIFromState) {
   this.mainMelody = [];
   this.playing = false;
   this.updateUIFromState = updateUIFromState;
-  this.synth = Tone.Synth({
+  this.synth = new Tone.Synth({
     oscillator: {
       count: 4,
       // type: "fatsawtooth",
