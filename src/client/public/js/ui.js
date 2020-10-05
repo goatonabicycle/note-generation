@@ -41,8 +41,6 @@ playButton.addEventListener("click", async () => {
   playButton.innerHTML = playing ? "Stop" : "Play";
 });
 
-
-
 refreshButton.addEventListener("click", async () => {
   document.location = removeUrlParameter(document.location + '', "pattern");
 });
@@ -69,7 +67,6 @@ shareButton.addEventListener("click", async () => {
 
   const shareableUrl = createSharableUrl(shareParameterArray);
   sharePanel.innerText = shareableUrl;
-
 
   const copiedNotification = document.createElement("div");
   const copiedTextElement = document.createTextNode("Copied to your clipboard!");
