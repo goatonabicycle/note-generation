@@ -2,13 +2,11 @@ import {
   setUrl,
   createSharableUrl,
   removeUrlParameter,
-  copyStringToClipboard
+  copyStringToClipboard,
 } from "./utils.js";
-import {
-  patterns
-} from "./patterns.js";
+import { patterns } from "./patterns.js";
 
-const defaultTempo = "240"
+const defaultTempo = "240";
 
 const playButton = document.getElementById("play-button");
 const shareButton = document.getElementById("note-share-button");
@@ -16,6 +14,7 @@ const refreshButton = document.getElementById("refresh-button");
 const tempoSlider = document.getElementById("tempoRange");
 const selectedTempo = document.getElementById("tempo") || defaultTempo;
 const selectedNumberOfNotes = document.getElementById("notes");
+const selectedEmptyNotes = document.getElementById("empty-notes");
 const selectedKey = document.getElementById("key");
 const selectedScale = document.getElementById("scale");
 const noteObjects = document.querySelectorAll(".note-item");
@@ -34,7 +33,12 @@ function updateUI(state) {
   }
 }
 
-var patternsInstance = new patterns(Tone, noteObjects, tempoSlider.value, updateUI);
+var patternsInstance = new patterns(
+  Tone,
+  noteObjects,
+  tempoSlider.value,
+  updateUI
+);
 
 playButton.addEventListener("click", async () => {
   const playing = await patternsInstance.play();
@@ -42,7 +46,7 @@ playButton.addEventListener("click", async () => {
 });
 
 refreshButton.addEventListener("click", async () => {
-  document.location = removeUrlParameter(document.location + '', "pattern");
+  document.location = removeUrlParameter(document.location + "", "pattern");
 });
 
 shareButton.addEventListener("click", async () => {
@@ -59,21 +63,22 @@ shareButton.addEventListener("click", async () => {
     new shareParameter("notes", selectedNumberOfNotes.value)
   );
   shareParameterArray.push(
-    new shareParameter("tempo", tempoSlider.value)
+    new shareParameter("empty", selectedEmptyNotes.value)
   );
-  shareParameterArray.push(
-    new shareParameter("pattern", currentPattern)
-  );
+  shareParameterArray.push(new shareParameter("tempo", tempoSlider.value));
+  shareParameterArray.push(new shareParameter("pattern", currentPattern));
 
   const shareableUrl = createSharableUrl(shareParameterArray);
   sharePanel.innerText = shareableUrl;
 
   const copiedNotification = document.createElement("div");
-  const copiedTextElement = document.createTextNode("Copied to your clipboard!");
+  const copiedTextElement = document.createTextNode(
+    "Copied to your clipboard!"
+  );
   copiedNotification.appendChild(copiedTextElement);
   sharePanel.append(copiedNotification);
 
-  copyStringToClipboard(shareableUrl)
+  copyStringToClipboard(shareableUrl);
   console.log("shareableUrl", shareableUrl);
 });
 
@@ -89,6 +94,7 @@ const setUrlQueryParam = (key) => (sender) => {
 };
 
 selectedNumberOfNotes.onchange = setUrlQueryParam("notes");
+selectedEmptyNotes.onchange = setUrlQueryParam("empty");
 selectedKey.onchange = setUrlQueryParam("key");
 selectedScale.onchange = setUrlQueryParam("scale");
 

@@ -39,19 +39,22 @@ const buildRandomResult = (query) => {
     scale,
     notes,
     key,
-    pattern
+    pattern,
+    empty
   } = query;
-
 
   const selectedKey = key || defaultValues.key;
   const selectedScale = scale || defaultValues.scale;
   const allScales = Mode.names();
   const baseNotes = Scale.notes(selectedKey + " " + selectedScale);
   const selectedNumberOfNotes = notes || defaultValues.notes;
+  const allEmptyModes = ["None", "Few", "Many"];
+  const selectedEmptyMode = empty || defaultValues.empty;
+
 
   let randomNotes = "";
   if (pattern) {
-    randomNotes = pattern.split(',');
+    randomNotes = pattern.split(",");
 
     console.log("Woah! You already have a pattern -> " + pattern);
   } else {
@@ -66,6 +69,8 @@ const buildRandomResult = (query) => {
     keys,
     allNotes: baseNotes,
     allScales,
+    allEmptyModes,
+    selectedEmptyMode,
   };
 
   return result;
