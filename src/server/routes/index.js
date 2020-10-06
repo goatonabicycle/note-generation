@@ -20,21 +20,6 @@ const getRandomNotes = (numberOfNotes, withinRange = []) => {
 };
 
 const buildRandomResult = (query) => {
-  const keys = [
-    "A",
-    "Bb",
-    "B",
-    "C",
-    "Db",
-    "D",
-    "Eb",
-    "E",
-    "F",
-    "Gb",
-    "G",
-    "Ab",
-  ];
-
   const {
     scale,
     notes,
@@ -48,14 +33,21 @@ const buildRandomResult = (query) => {
   const allScales = Mode.names();
   const baseNotes = Scale.notes(selectedKey + " " + selectedScale);
   const selectedNumberOfNotes = notes || defaultValues.notes;
-  const allEmptyModes = ["None", "Few", "Many"];
+  const allEmptyModes = ["None", "Low", "High"];
   const selectedEmptyMode = empty || defaultValues.empty;
 
+  if (selectedEmptyMode === "Low") {
+    baseNotes.push(" ");
+  }
+
+  if (selectedEmptyMode === "High") {
+    baseNotes.push(" ");
+    baseNotes.push(" ");
+  }
 
   let randomNotes = "";
   if (pattern) {
     randomNotes = pattern.split(",");
-
     console.log("Woah! You already have a pattern -> " + pattern);
   } else {
     randomNotes = getRandomNotes(selectedNumberOfNotes, baseNotes);
@@ -66,7 +58,7 @@ const buildRandomResult = (query) => {
     selectedScale,
     selectedKey,
     selectedNumberOfNotes,
-    keys,
+    keys: defaultValues.keys,
     allNotes: baseNotes,
     allScales,
     allEmptyModes,
