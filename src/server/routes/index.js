@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {
-  Scale
-} = require("tonal");
-const {
-  Mode
-} = require("@tonaljs/tonal");
+const { Scale } = require("tonal");
+const { Mode } = require("@tonaljs/tonal");
 
 const defaultValues = require("../../defaultValues");
 
@@ -20,13 +16,7 @@ const getRandomNotes = (numberOfNotes, withinRange = []) => {
 };
 
 const buildRandomResult = (query) => {
-  const {
-    scale,
-    notes,
-    key,
-    pattern,
-    empty
-  } = query;
+  const { scale, notes, key, pattern, empty } = query;
 
   const selectedKey = key || defaultValues.key;
   const selectedScale = scale || defaultValues.scale;
