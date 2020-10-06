@@ -33,7 +33,7 @@ function patterns(Tone, noteObjects, tempo, updateUIFromState) {
     //update UI
     this.updateUIFromState({
       currentItem: this.currentItem,
-      tempo: this.tempo
+      tempo: this.tempo,
     });
 
     //Next item
@@ -65,17 +65,15 @@ function patterns(Tone, noteObjects, tempo, updateUIFromState) {
     //update UI
     this.updateUIFromState({
       currentItem: this.currentItem,
-      tempo: this.tempo
+      tempo: this.tempo,
     });
-  }
+  };
 
   this.loopWithNewTempo = () => {
     clearInterval(this.timer);
     const tempo = 60000 / this.tempo;
     this.timer = setInterval(this.loopThroughNotes.bind(this), tempo); //loopThroughNotes gets executed from Window context, bind this so that we have to instance properties.
-  }
+  };
 }
 
-export {
-  patterns
-};
+export { patterns };
