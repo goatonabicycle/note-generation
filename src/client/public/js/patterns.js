@@ -12,7 +12,7 @@ function patterns(Tone, noteObjects, tempo, updateUIFromState) {
     },
   }).toDestination();
 
-  noteObjects.forEach((element, index) => {
+  noteObjects.forEach((element) => {
     this.mainMelody.push({
       note: element.innerHTML + "2",
       duration: "8n",
@@ -27,7 +27,7 @@ function patterns(Tone, noteObjects, tempo, updateUIFromState) {
     this.synth.triggerAttackRelease(
       currentNote.note,
       currentNote.duration,
-      currentNote.time
+      currentNote.time,
     );
 
     //update UI

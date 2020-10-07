@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import {
   setUrl,
   createSharableUrl,
@@ -37,7 +38,7 @@ var patternsInstance = new patterns(
   Tone,
   noteObjects,
   tempoSlider.value,
-  updateUI
+  updateUI,
 );
 
 playButton.addEventListener("click", async () => {
@@ -55,25 +56,25 @@ shareButton.addEventListener("click", async () => {
     this.value = value;
   }
 
-  const shareParameterArray = [];
-  shareParameterArray.push(new shareParameter("key", selectedKey.value));
-  shareParameterArray.push(new shareParameter("scale", selectedScale.value));
+  const shareParameterArray = new Set();
+  shareParameterArray.add(new shareParameter("key", selectedKey.value));
+  shareParameterArray.add(new shareParameter("scale", selectedScale.value));
 
-  shareParameterArray.push(
-    new shareParameter("notes", selectedNumberOfNotes.value)
+  shareParameterArray.add(
+    new shareParameter("notes", selectedNumberOfNotes.value),
   );
-  shareParameterArray.push(
-    new shareParameter("empty", selectedEmptyNotes.value)
+  shareParameterArray.add(
+    new shareParameter("empty", selectedEmptyNotes.value),
   );
-  shareParameterArray.push(new shareParameter("tempo", tempoSlider.value));
-  shareParameterArray.push(new shareParameter("pattern", currentPattern));
+  shareParameterArray.add(new shareParameter("tempo", tempoSlider.value));
+  shareParameterArray.add(new shareParameter("pattern", currentPattern));
 
   const shareableUrl = createSharableUrl(shareParameterArray);
   sharePanel.innerText = shareableUrl;
 
   const copiedNotification = document.createElement("div");
   const copiedTextElement = document.createTextNode(
-    "Copied to your clipboard!"
+    "Copied to your clipboard!",
   );
   copiedNotification.appendChild(copiedTextElement);
   sharePanel.append(copiedNotification);

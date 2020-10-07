@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const setUrl = (parameterName, target) => {
   var href = new URL(window.location.href);
   href.searchParams.set(parameterName, target.value);
@@ -28,7 +29,7 @@ function removeUrlParameter(url, parameter) {
     var parts = queryString.split(/[&;]/g);
 
     // Reverse iteration as may be destructive
-    for (var i = parts.length; i-- > 0; ) {
+    for (var i = parts.length; i--; i > 0) {
       // Idiom for string.startsWith
       if (parts[i].lastIndexOf(prefix, 0) !== -1) {
         parts.splice(i, 1);
