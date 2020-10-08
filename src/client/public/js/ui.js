@@ -5,7 +5,7 @@ import {
   removeUrlParameter,
   copyStringToClipboard,
 } from "./utils.js";
-import { patterns } from "./patterns.js";
+import { pattern } from "./patterns.js";
 
 const defaultTempo = "240";
 
@@ -34,7 +34,7 @@ function updateUI(state) {
   }
 }
 
-var patternsInstance = new patterns(
+var patternInstance = new pattern(
   Tone,
   noteObjects,
   tempoSlider.value,
@@ -42,7 +42,7 @@ var patternsInstance = new patterns(
 );
 
 playButton.addEventListener("click", async () => {
-  const playing = await patternsInstance.play();
+  const playing = await patternInstance.play();
   playButton.innerHTML = playing ? "Stop" : "Play";
 });
 
@@ -85,7 +85,7 @@ shareButton.addEventListener("click", async () => {
 
 tempoSlider.onchange = () => {
   const tempo = tempoSlider.value;
-  patternsInstance.updateTempo(tempo);
+  patternInstance.updateTempo(tempo);
   selectedTempo.innerHTML = tempo;
   window.localStorage.setItem("tempo", tempo);
 };
@@ -102,4 +102,4 @@ selectedScale.onchange = setUrlQueryParam("scale");
 const initialTempo = window.localStorage.getItem("tempo") || defaultTempo;
 tempoSlider.value = initialTempo;
 selectedTempo.innerHTML = initialTempo;
-patternsInstance.updateTempo(initialTempo);
+patternInstance.updateTempo(initialTempo);
