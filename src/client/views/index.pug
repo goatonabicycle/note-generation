@@ -44,6 +44,13 @@ html(lang='en')
                   option(value=i selected=(i == selectedNumberOfNotes)) #{i}
                   -}
 
+            div(class="title-item") Chance of empty notes: 
+            div
+              select(id="empty-notes" name="empty-notes" class="select-css")
+                each item in allEmptyModes
+                  option(value=item selected=(item == selectedEmptyMode)) #{item}
+
+
             div(class="title-item") Tempo:  
               div(id="tempo" style="display:inline") #{currentTempo}
 

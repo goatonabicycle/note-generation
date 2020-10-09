@@ -1,6 +1,6 @@
 {
-  "name": "pattern-generation",
-  "version": "0.0.0",
+  "name": "note-generation",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -21,7 +21,11 @@
     "tone": "^14.7.39"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.11.5",
     "browser-sync": "^2.26.12",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "jest": "^26.5.0",
     "nodemon": "^2.0.2"
   }
 }
