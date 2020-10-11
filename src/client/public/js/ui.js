@@ -13,7 +13,7 @@ const playButton = document.getElementById("play-button");
 const shareButton = document.getElementById("note-share-button");
 const refreshButton = document.getElementById("refresh-button");
 const tempoSlider = document.getElementById("tempoRange");
-const selectedTempo = document.getElementById("tempo") || defaultTempo;
+const tempoTextbox = document.getElementById("tempo-text") || defaultTempo;
 const selectedNumberOfNotes = document.getElementById("notes");
 const selectedEmptyNotes = document.getElementById("empty-notes");
 const selectedKey = document.getElementById("key");
@@ -83,12 +83,27 @@ shareButton.addEventListener("click", async () => {
   console.log("shareableUrl", shareableUrl);
 });
 
-tempoSlider.onchange = () => {
-  const tempo = tempoSlider.value;
+const tempoOnchange = (event) => {
+  let tempo;
+  if (event.target.id === "tempoRange") {
+    tempo = tempoSlider.value;
+    tempoTextbox.value = tempo;
+  }
+
+  if (event.target.id === "tempo-text") {
+    tempo = tempoTextbox.value;
+    tempoRange.value = tempo;
+  }
+
   patternInstance.updateTempo(tempo);
-  selectedTempo.innerHTML = tempo;
   window.localStorage.setItem("tempo", tempo);
 };
+
+tempoSlider.onchange = tempoOnchange;
+tempoTextbox.onchange = tempoOnchange;
+tempoTextbox.onkeypress = tempoOnchange;
+tempoTextbox.onpaste = tempoOnchange;
+tempoTextbox.oninput = tempoOnchange;
 
 const setUrlQueryParam = (key) => (sender) => {
   setUrl(key, sender.target);
@@ -101,5 +116,5 @@ selectedScale.onchange = setUrlQueryParam("scale");
 
 const initialTempo = window.localStorage.getItem("tempo") || defaultTempo;
 tempoSlider.value = initialTempo;
-selectedTempo.innerHTML = initialTempo;
+tempoTextbox.value = initialTempo;
 patternInstance.updateTempo(initialTempo);
