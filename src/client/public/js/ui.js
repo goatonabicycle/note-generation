@@ -12,7 +12,7 @@ const defaultTempo = "240";
 const playButton = document.getElementById("play-button");
 const shareButton = document.getElementById("note-share-button");
 const refreshButton = document.getElementById("refresh-button");
-const tempoSlider = document.getElementById("tempoRange");
+const tempoSlider = document.getElementById("tempo-range");
 const tempoTextbox = document.getElementById("tempo-text") || defaultTempo;
 const selectedNumberOfNotes = document.getElementById("notes");
 const selectedEmptyNotes = document.getElementById("empty-notes");
@@ -85,7 +85,7 @@ shareButton.addEventListener("click", async () => {
 
 const tempoOnchange = (event) => {
   let tempo;
-  if (event.target.id === "tempoRange") {
+  if (event.target.id === "tempo-range") {
     tempo = tempoSlider.value;
     tempoTextbox.value = tempo;
   }
