@@ -50,12 +50,16 @@ html(lang='en')
                 each item in allEmptyModes
                   option(value=item selected=(item == selectedEmptyMode)) #{item}
 
-
             div(class="title-item") Tempo:  
-              div(id="tempo" style="display:inline") #{currentTempo}
+            br
+            input(type='number', 
+              id='tempo-text', 
+              onKeyUp="if(this.value>600){this.value='600';}else if(this.value<30){this.value='30';}", 
+              step="10",
+              value=currentTempo)
 
             div(class="slidecontainer")
-              input(type="range" min="40" max="600" step="10" value=currentTempo class="slider" id="tempoRange")
+              input(type="range" min="30" max="600" step="1" value=currentTempo class="slider" id="tempo-range")
 
             br
             div Randomized notes from 

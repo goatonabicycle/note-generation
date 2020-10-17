@@ -41,6 +41,11 @@ a {
   color: #00b7ff;
 }
 
+input[type="number"] {
+  width: 100px;
+  color: black;
+}
+
 input[type="range"] {
   overflow: hidden;
   width: 300px;
