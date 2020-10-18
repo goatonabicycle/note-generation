@@ -1,5 +1,5 @@
 import "jest";
-import { patterns } from "../../src/client/public/js/patterns";
+import { pattern } from "../../src/client/public/js/patterns";
 
 const triggerAttackRelease = jest.fn();
 
@@ -16,9 +16,9 @@ const toneMock = {
 let noteObjects = [{ innerHTML: "A" }];
 let tempo = 0;
 let updateUIFromState = jest.fn();
-const patternsInstance = new patterns(toneMock, noteObjects, tempo, updateUIFromState);
+const patternsInstance = new pattern(toneMock, noteObjects, tempo, updateUIFromState);
 
-test('should loop through notes and place them', () => {
+test('should loop through notes and play them', () => {
     patternsInstance.loopThroughNotes();
 
     expect(updateUIFromState).toHaveBeenCalledWith({ currentItem: 0, tempo: 0 });
