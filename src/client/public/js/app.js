@@ -22,7 +22,7 @@ App.prototype = {
         tempo: "240",
         mainMelody: [],
     },
-    patterns: undefined,
+    soundPlayer: undefined,
     ui: {
         playButton: document.getElementById("play-button"),
         shareButton: document.getElementById("note-share-button"),
@@ -46,7 +46,7 @@ App.prototype = {
             this.state.tempo = settings.tempo;
         }
 
-        /*Init patterns component with notes from server hydrated view */
+        /*Init soundPlayer component with notes from server hydrated view */
         this.ui.noteObjects.forEach((element) => {
             this.state.mainMelody.push({
                 note: element.innerHTML + "2",
@@ -54,7 +54,7 @@ App.prototype = {
                 noteObject: element,
             });
         });
-        this.patterns = new SoundPlayer(Tone, this.state.mainMelody, this.state.tempo, this.setState.bind(this))
+        this.soundPlayer = new SoundPlayer(Tone, this.state.mainMelody, this.state.tempo, this.setState.bind(this))
 
         /* Set initial UI values */
         this.ui.tempoSlider.value = this.state.tempo;
@@ -62,7 +62,7 @@ App.prototype = {
 
         /*Bind UI event handlers */
         this.ui.playButton.addEventListener("click", async () => {
-            const playing = await this.patterns.play();
+            const playing = await this.soundPlayer.play();
             this.ui.playButton.innerHTML = playing ? "Stop" : "Play";
         });
 
@@ -140,7 +140,7 @@ App.prototype = {
     },
     stateChanged(newState, oldState) {
         /* Update component states */
-        this.patterns.stateChanged(newState);
+        this.soundPlayer.stateChanged(newState);
 
         /* Update UI */
         this.render(newState, oldState);
