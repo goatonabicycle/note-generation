@@ -1,11 +1,11 @@
-class pattern {
-  constructor(Tone, noteObjects, tempo, updateUIFromState) {
+class SoundPlayer {
+  constructor(Tone, mainMelody, tempo, setState) {
     this.currentItem = 0;
     this.timer = 0;
     this.tempo = tempo;
-    this.mainMelody = [];
+    this.mainMelody = mainMelody;
     this.playing = false;
-    this.updateUIFromState = updateUIFromState;
+    this.setState = setState;
     this.synth = new Tone.Synth({
       oscillator: {
         count: 4,
@@ -13,13 +13,6 @@ class pattern {
       },
     }).toDestination();
 
-    noteObjects.forEach((element) => {
-      this.mainMelody.push({
-        note: element.innerHTML + "2",
-        duration: "8n",
-        noteObject: element,
-      });
-    });
   }
 
   loopThroughNotes() {
@@ -32,13 +25,8 @@ class pattern {
       currentNote.time,
     );
 
-    //update UI
-    this.updateUIFromState({
-      currentItem: this.currentItem,
-      tempo: this.tempo,
-    });
+    this.setState("currentItem", this.currentItem);
 
-    //Next item
     this.currentItem++;
 
     if (this.currentItem === this.mainMelody.length) this.currentItem = 0;
@@ -58,17 +46,17 @@ class pattern {
     return this.playing;
   }
 
+  stateChanged(state) {
+    if (state.tempo) {
+      this.updateTempo(state.tempo);
+    }
+  }
+
   updateTempo(tempo) {
     this.tempo = tempo;
     if (this.playing) {
       this.loopWithNewTempo();
     }
-
-    //update UI
-    this.updateUIFromState({
-      currentItem: this.currentItem,
-      tempo: this.tempo,
-    });
   }
 
   loopWithNewTempo() {
@@ -78,4 +66,4 @@ class pattern {
   }
 }
 
-export { pattern };
+export { SoundPlayer };
