@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "npm run build && node ./dist/server/app.js",
     "dev": "nodemon ./src/server/app.js",
-    "ui": "browser-sync start --proxy=localhost:8000 --files='**/*.css, **/*.jade, **/*.js' --ignore=node_modules --reload-delay 10 --no-ui --no-notify",
+    "build": "rollup --config",
     "test": "jest"
   },
   "dependencies": {
@@ -21,11 +21,17 @@
     "tone": "^14.7.39"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.11.5",
+    "@rollup/plugin-babel": "^5.2.1",
     "browser-sync": "^2.26.12",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "jest": "^26.5.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "rollup": "^2.32.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-local-resolve": "^1.0.7"
   }
 }
