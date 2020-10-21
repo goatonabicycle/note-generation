@@ -15,15 +15,17 @@ const config = [{
         dir: 'dist/server',
         format: 'cjs'
     },
-    plugins: [localResolve(),
-    babel({ babelHelpers: 'bundled' }),
-    copy({
-        targets: [
-            { src: 'src/client/public/css', dest: 'dist/client/public' },
-            { src: 'src/client/public/images', dest: 'dist/client/public' },
-            { src: 'src/client/views', dest: 'dist/client' },
-        ]
-    })]
+    plugins: [
+        localResolve(),
+        babel({ babelHelpers: 'runtime' }),
+        copy({
+            targets: [
+                { src: 'src/client/public/css', dest: 'dist/client/public' },
+                { src: 'src/client/public/images', dest: 'dist/client/public' },
+                { src: 'src/client/views', dest: 'dist/client' },
+            ]
+        })
+    ]
 }];
 
 export default config;
