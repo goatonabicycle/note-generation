@@ -16,72 +16,77 @@ html(lang='en')
     link(rel='stylesheet' href='css/normalize.css')
     link(rel='stylesheet' href='css/skeleton.css')    
     link(rel='stylesheet' href='css/app.css')        
+    link(href="https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap" rel="stylesheet")
     link(rel='icon' type='image/png' href='images/favicon.png')
-
     script(src="https://unpkg.com/tone")       
-  body    
-    .container
-      .row
-        .twelve.column(style='margin-top:5%')
 
-          div(style="text-align:center")
-            div(class="title-item") Key: 
-            div
-              select(id="key" name="key" class="select-css")
-                each item in keys
-                  option(value=item selected=(item == selectedKey)) #{item}
+  body
+    .background
+      .logo-box
+        p(class="logo") Melody
+        p(class="slogan") Explore.Learn.Create.
+      .boundary
+        .container
+          .row
+              div(class="app-box")
+                div(style="text-align:center")
+                  div(class="title-item") Key: 
+                  div
+                    select(id="key" name="key" class="select-css")
+                      each item in keys
+                        option(value=item selected=(item == selectedKey)) #{item}
 
-            div(class="title-item") Scale: 
-            div
-              select(id="scale" name="scale" class="select-css")
-                each item in allScales
-                  option(value=item selected=(item == selectedScale)) #{item}
+                  div(class="title-item") Scale: 
+                  div
+                    select(id="scale" name="scale" class="select-css")
+                      each item in allScales
+                        option(value=item selected=(item == selectedScale)) #{item}
 
-            div(class="title-item") Number of notes: 
-            div
-              select(id="notes" name="notes" class="select-css")
-                -for(var i = 1;i<=16;i++){
-                  option(value=i selected=(i == selectedNumberOfNotes)) #{i}
-                  -}
+                  div(class="title-item") Number of notes: 
+                  div
+                    select(id="notes" name="notes" class="select-css")
+                      -for(var i = 1;i<=16;i++){
+                        option(value=i selected=(i == selectedNumberOfNotes)) #{i}
+                        -}
 
-            div(class="title-item") Chance of empty notes: 
-            div
-              select(id="empty-notes" name="empty-notes" class="select-css")
-                each item in allEmptyModes
-                  option(value=item selected=(item == selectedEmptyMode)) #{item}
+                  div(class="title-item") Chance of empty notes: 
+                  div
+                    select(id="empty-notes" name="empty-notes" class="select-css")
+                      each item in allEmptyModes
+                        option(value=item selected=(item == selectedEmptyMode)) #{item}
 
-            div(class="title-item") Tempo:  
-            br
-            input(type='number', 
-              id='tempo-text', 
-              onKeyUp="if(this.value>600){this.value='600';}else if(this.value<30){this.value='30';}", 
-              step="10",
-              value=currentTempo)
+                  div(class="title-item") Tempo:  
+                  br
+                  input(type='number', 
+                    id='tempo-text', 
+                    onKeyUp="if(this.value>600){this.value='600';}else if(this.value<30){this.value='30';}", 
+                    step="10",
+                    value=currentTempo)
 
-            div(class="slidecontainer")
-              input(type="range" min="30" max="600" step="1" value=currentTempo class="slider" id="tempo-range")
+                  div(class="slidecontainer")
+                    input(type="range" min="30" max="600" step="1" value=currentTempo class="slider" id="tempo-range")
 
-            br
-            div Randomized notes from 
-              i #{allNotes}  
-            br 
-            br
-            div(id="current-pattern", class="hidden") #{pattern.toString()}
-            div(class="note-container")
-              each item in pattern
-                div(class="note-item") #{item}
-            br
-            div()
-              button(id="play-button") Play
-              button(id="refresh-button") New Notes
-              button(id="note-share-button") Share            
-            div(id="share-url" class="copy-share-url")
+                  br
+                  div Randomized notes from 
+                    i #{allNotes}  
+                  br 
+                  br
+                  div(id="current-pattern", class="hidden") #{pattern.toString()}
+                  div(class="note-container")
+                    each item in pattern
+                      div(class="note-item") #{item}
+                  br
+                  div()
+                    button(id="play-button") Play
+                    button(id="refresh-button") New Notes
+                    button(id="note-share-button") Share            
+                  div(id="share-url" class="copy-share-url")
 
-            br
-            br
-            a(href="https://github.com/goatonabicycle/note-generation", target="_blank") Code here
-            br                       
+                  br
+                  br
+                  a(href="https://github.com/goatonabicycle/note-generation", target="_blank") Code here
+                  br                       
 
-            script(src="js/app.js", type="module")
+    script(src="js/app.js", type="module")
 
 
