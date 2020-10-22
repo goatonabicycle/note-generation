@@ -82,6 +82,23 @@ a {
   color: #00b7ff;
 }
 
+.github {
+  text-decoration: none;
+  color: yellow;
+  font-family: "Staatliches", sans-serif;
+  font-size: 30px;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -ms-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  opacity: 1;
+}
+
+.github:hover {
+  opacity: 0.5;
+}
+
 input[type="number"] {
   width: 100px;
   color: black;
