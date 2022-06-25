@@ -16,7 +16,7 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "pug": "^3.0.0",
     "tonal": "^2.2.2",
     "tone": "^14.7.39"
